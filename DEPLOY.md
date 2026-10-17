@@ -4,6 +4,14 @@ Hosted URLs: [Model Lab](https://it344-model-lab.streamlit.app/) and [Model Lab 
 
 Both apps retain **Find similar models**: pick any reference model, select one or more features, and see every comparable alternative with a similarity threshold and downloadable results. They ship with a cleaned **704-model Artificial Analysis snapshot**; students do not need an AA account or key to use that data.
 
+For fresh AA data, add the instructor's key to **Settings → Secrets in both deployments**:
+
+```toml
+AA_API_KEY = "your-instructor-aa-key"
+```
+
+Students are never asked for this key. Each app fetches automatically on first use, shares the result across visitors for six hours, and refreshes on the next interaction after expiry. Failed refreshes keep the last good data (or the saved snapshot on startup) and retry after five minutes. Uploads and demo mode bypass fetching. Secrets stay on the server; never put the real key in this repository. To force an immediate refresh as instructor, reboot the app from its management controls.
+
 GitHub stores the source. **Streamlit Community Cloud runs the apps** and provides the URLs students open. GitHub Pages cannot run these Python servers.
 
 ## 1. Put the project in GitHub
@@ -62,7 +70,7 @@ To keep inference local and avoid a hosted LLM API, run `agent_app.py` on your c
 4. Run a scripted rehearsal in the agent app to check the workflow.
 5. Configure your provider and run the actual agent. Confirm its checked result and inspect its trace. A model can fail the tool/evidence checks; that failure should be reported rather than hidden.
 
-Keep the snapshot retrieval date with student results. It is saved benchmark data, not a live feed.
+Keep the snapshot retrieval date with student results. Automatic refresh updates the snapshot periodically; it is not a real-time feed.
 
 ## 5. Refresh the teaching snapshot
 
@@ -78,7 +86,7 @@ git commit -m "Refresh the teaching model snapshot"
 git push
 ```
 
-The preparation script validates and retains only recognized fields. Commit the resulting `model_compare/data/aa_snapshot.json`; the raw download directory stays ignored. Streamlit redeploys code changes from GitHub. API refresh is explicit; no scheduled jobs or student-triggered use of an instructor AA key are required.
+The preparation script validates and retains only recognized fields. Commit the resulting `model_compare/data/aa_snapshot.json`; the raw download directory stays ignored. Streamlit redeploys code changes from GitHub. This updates the saved fallback; automatic server refresh uses the instructor's key independently and never commits downloaded data or credentials.
 
 ## Checks and release package
 

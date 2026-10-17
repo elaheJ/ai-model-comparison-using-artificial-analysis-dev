@@ -5,7 +5,7 @@
 - **[Model Lab](https://it344-model-lab.streamlit.app/)** — rank models and find similar alternatives across one or more features.
 - **[Model Lab · Agent](https://it344-model-agent.streamlit.app/)** — the same comparison and similarity tools, plus a checked agent workflow.
 
-Both use the bundled 704-model snapshot without an AA key. The cloud agent needs an instructor-configured LLM provider for actual AI runs; comparison, similarity, and the clearly labeled scripted rehearsal work without one.
+Both load AA data using an instructor key stored on the server, when configured, and otherwise use the bundled 704-model snapshot. Students are never asked for an AA key. The cloud agent needs an instructor-configured LLM provider for actual AI runs; comparison, similarity, and the clearly labeled scripted rehearsal work without one.
 
 Two runnable apps adapted from **My344-FA26-ArtificialAnalysis-Functions & LLM Agent.ipynb**:
 
@@ -70,7 +70,7 @@ Once the model has been cached, the local-model workflow can operate offline wit
 
 ## Use the apps
 
-1. Start with the **bundled real AA snapshot**, or upload your own JSON/CSV. A local `snapshots/aa_latest.json` overrides the bundle. Fictional demo data is available explicitly under Data.
+1. Start with automatically refreshed AA data when the instructor has configured a server key, or the **bundled real AA snapshot** otherwise. Uploads and fictional demo data are available under Data. A local `snapshots/aa_latest.json` overrides the bundled fallback.
 2. Filter creators or search names, then select the exact model IDs to compare. Defaults select the first eight records. The Python app supports up to 1,000 records; an agent run is limited to 12 selected candidates to control context size.
 3. Enter input/output token volumes and minimum quality, maximum first-token delay, and maximum workload cost. Optional first-answer and end-to-end limits are available.
 4. Pick a single metric, or use weighted composite scoring. Composite presets can be adjusted with individual sliders.
@@ -114,6 +114,10 @@ Uploads are limited to 10 MB and 1,000 records. Invalid or negative numbers, boo
 
 The apps use a minimal red, black, and white interface based on [Illinois State’s digital palette](https://designsystem.illinoisstate.edu/guidelines/color/) (brand red `#CC0000`). Data settings, requirements, charts, and audit details are collapsed by default.
 
+For automatic refresh, the instructor sets `AA_API_KEY` in **each app's Streamlit Secrets** (or the local server environment). Students never enter an AA key or press a fetch button. The first default-data request fetches AA data; subsequent visitors and interactions reuse a server-wide six-hour cache. The next interaction after expiry refreshes it. Each deployment maintains its own cache. There is no background schedule while an app is idle.
+
+Failures keep the last successfully downloaded snapshot in memory, or use the saved snapshot if no live fetch has succeeded, with a short status message. Retries wait five minutes. Restarting a server clears this in-memory cache; the bundled snapshot remains available. An explicit upload or demo selection bypasses live fetching. Source details and exports preserve the retrieval date.
+
 Fetch real data in your terminal without saving the key:
 
 ```bash
@@ -124,7 +128,7 @@ Enter your key at the hidden prompt. Both apps prefer `snapshots/aa_latest.json`
 
 If you have already exported your key as `AA_API_KEY`, omit `--prompt-key`. The older `ARTIFICIAL_ANALYSIS_API_KEY` name also works, with `AA_API_KEY` taking priority. Environment variables exported in a new terminal do not propagate into app servers already running in another terminal; the saved-snapshot command works without restarting them.
 
-Alternatively, open **Data → Load or refresh snapshot**, enter your key in the password field, and click **Fetch latest AA snapshot**. The fetched snapshot stays in that browser session; use Download snapshot to save it. An uploaded file or explicit demo selection takes precedence over the fetched snapshot.
+Use **Data → Source details → Download snapshot** to save the currently displayed data. Instructor keys are used only on the server and never included in downloads. Add or change them through server settings, not the student interface.
 
 The apps are snapshot-first. You can also fetch to another filename using a configured key:
 

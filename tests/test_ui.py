@@ -75,17 +75,40 @@ def test_similarity_workspace_uses_whole_snapshot():
     assert not app.exception and any('at least one similarity' in i.value for i in app.info)
 
 
-def test_fetch_aa_button_uses_secret(monkeypatch):
-    from model_compare.snapshots import demo_snapshot
+@pytest.mark.parametrize('entry', ['python_app.py', 'cloud_agent_app.py'])
+def test_aa_refresh_uses_instructor_secret_without_student_prompt(monkeypatch, entry):
+    from model_compare.live_data import SnapshotFeed
+    calls=[]
     def fake_fetch(key):
         assert key=='test-only-key'
+        calls.append(key)
         data=demo_snapshot(); data['is_demo']=False
         return data
-    monkeypatch.setattr('model_compare.ui.fetch_artificial_analysis',fake_fetch)
+    feed=SnapshotFeed(fetch=fake_fetch)
+    monkeypatch.setattr('model_compare.ui.shared_feed',lambda: feed)
+    app=AppTest.from_file(str(ROOT/entry),default_timeout=30)
+    app.secrets['AA_API_KEY']='test-only-key'
+    app.run()
+    assert not app.exception
+    assert any('Latest AA data · 8 models' in c.value for c in app.caption)
+    assert not any('AA API key' in w.label for w in app.text_input)
+    assert not any('Fetch latest' in w.label for w in app.button)
+    widget(app.radio,'Workspace').set_value('Find similar models').run()
+    assert len(calls)==1
+    widget(app.checkbox,'Use fictional demo data').check().run()
+    assert len(calls)==1 and any('Fictional demo' in c.value for c in app.caption)
+
+
+def test_aa_failure_uses_saved_data_without_asking_students(monkeypatch):
+    from model_compare.live_data import SnapshotFeed
+    def failing_fetch(key):
+        raise RuntimeError('private error '+key)
+    feed=SnapshotFeed(fetch=failing_fetch)
+    monkeypatch.setattr('model_compare.ui.shared_feed',lambda: feed)
     app=AppTest.from_file(str(ROOT/'python_app.py'),default_timeout=30)
     app.secrets['AA_API_KEY']='test-only-key'
     app.run()
-    app.button(key='fetch_aa').click().run()
-    assert not app.exception
-    assert not app.session_state['downloaded_snapshot']['is_demo']
-    assert any('8 real model records' in s.value for s in app.success)
+    assert not app.exception and not app.error
+    assert any('temporarily unavailable' in c.value for c in app.caption)
+    assert all('test-only-key' not in c.value for c in app.caption)
+    assert not any('AA API key' in w.label for w in app.text_input)

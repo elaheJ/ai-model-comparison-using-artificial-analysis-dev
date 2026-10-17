@@ -9,7 +9,8 @@ import plotly.express as px
 import streamlit as st
 from . import core
 from .agent import context_id, http_controller, local_controller, rehearsal_controller, run_agent
-from .snapshots import demo_snapshot, default_snapshot, load_snapshot, fetch_artificial_analysis
+from .snapshots import demo_snapshot, default_snapshot, load_snapshot
+from .live_data import SnapshotFeed
 
 DATA = Path(__file__).parent / "data"
 LABELS = {k: value[0] for k, value in core.METRICS.items()}
@@ -47,34 +48,36 @@ def setup(agent):
     st.caption("Compare models. Find alternatives." + (" Let an agent make a checked choice." if agent else ""))
 
 
+@st.cache_resource(show_spinner=False)
+def shared_feed():
+    return SnapshotFeed()
+
+
 def snapshot_controls():
     with st.sidebar:
         st.subheader("Data")
-        with st.expander("Load or refresh snapshot"):
+        with st.expander("Use a different snapshot"):
             upload = st.file_uploader("Load JSON or CSV", type=["json", "csv"], help="Maximum 10 MB.")
             use_demo = st.checkbox("Use fictional demo data", value=False)
-            st.caption("Or fetch directly from Artificial Analysis:")
-            supplied_key = st.text_input("AA API key (this session only)", type="password", key="aa_api_key_input")
-            api_key = supplied_key.strip() or settings("AA_API_KEY") or settings("ARTIFICIAL_ANALYSIS_API_KEY")
-            if st.button("Fetch latest AA snapshot", key="fetch_aa"):
-                try:
-                    with st.spinner("Loading model data…"):
-                        downloaded = fetch_artificial_analysis(api_key)
-                    st.session_state["downloaded_snapshot"] = downloaded
-                    st.success(f"Loaded {len(downloaded['models'])} real model records.")
-                except (ValueError, RuntimeError) as exc:
-                    st.error(str(exc))
-            st.caption("An empty key field uses AA_API_KEY from server settings. Keys are never included in exports.")
             st.download_button("CSV template", (DATA / "snapshot_template.csv").read_bytes(), "snapshot_template.csv", "text/csv")
+        live, unavailable = None, False
         try:
-            snapshot = (demo_snapshot() if use_demo else load_snapshot(upload.getvalue(), upload.name) if upload
-                        else st.session_state.get("downloaded_snapshot") or default_snapshot())
+            if use_demo:
+                snapshot = demo_snapshot()
+            elif upload:
+                snapshot = load_snapshot(upload.getvalue(), upload.name)
+            else:
+                api_key = settings("AA_API_KEY") or settings("ARTIFICIAL_ANALYSIS_API_KEY")
+                if api_key:
+                    with st.spinner("Loading model data…"):
+                        live, unavailable = shared_feed().read(api_key.strip())
+                snapshot = live or default_snapshot()
         except (ValueError, OSError) as exc:
             st.error(str(exc))
             st.stop()
-        if (upload or use_demo) and st.session_state.get("downloaded_snapshot"):
-            st.caption("Remove the upload and turn off demo data to see the fetched snapshot.")
-        label = "Fictional demo" if snapshot["is_demo"] else "Loaded snapshot"
+        if unavailable:
+            st.caption("Live refresh is temporarily unavailable. Using the last saved snapshot.")
+        label = "Fictional demo" if snapshot["is_demo"] else "Latest AA data" if live else "Loaded snapshot"
         st.caption(f"{label} · {len(snapshot['models'])} models")
         with st.expander("Source details"):
             st.write("Source:", snapshot["source"])
