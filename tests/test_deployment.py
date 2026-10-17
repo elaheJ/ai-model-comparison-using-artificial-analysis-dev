@@ -67,6 +67,7 @@ def test_hosted_controller_uses_verified_tls_and_parses_json(monkeypatch):
 
 def test_release_allowlist_excludes_private_files():
     files={str(p.relative_to(ROOT)) for p in release_files(ROOT)}
-    assert {'python_app.py','cloud_agent_app.py','model_compare/data/aa_snapshot.json','DEPLOY.md'} <= files
+    assert {'python_app.py','cloud_agent_app.py','model_compare/data/aa_snapshot.json','docs/setup.md',
+            'docs/reference.md','examples/task.json','.devcontainer/devcontainer.json'} <= files
     assert '.streamlit/secrets.example.toml' in files
     assert not any(p.startswith(('.venv/','snapshots/')) or p in ('.env','.streamlit/secrets.toml') for p in files)

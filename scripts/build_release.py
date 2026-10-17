@@ -5,10 +5,9 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[1]
 ROOT_FILES = (
-    'README.md', 'DEPLOY.md', 'pyproject.toml', 'requirements.txt',
-    'requirements-local.txt', 'requirements-dev.txt', 'python_app.py',
-    'agent_app.py', 'cloud_agent_app.py', 'task.example.json', 'Dockerfile',
-    '.gitignore', '.dockerignore', '.env.example',
+    'README.md', 'docs/setup.md', 'docs/reference.md', 'pyproject.toml', 'requirements.txt',
+    'python_app.py', 'agent_app.py', 'cloud_agent_app.py', 'examples/task.json',
+    '.gitignore', '.devcontainer/devcontainer.json',
     '.streamlit/config.toml', '.streamlit/secrets.example.toml',
     'model_compare/data/aa_snapshot.json', 'model_compare/data/demo_snapshot.json',
     'model_compare/data/snapshot_template.csv',

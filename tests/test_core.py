@@ -11,7 +11,7 @@ def snapshot():
 
 @pytest.fixture
 def task():
-    return json.loads((Path(__file__).parents[1] / 'task.example.json').read_text())
+    return json.loads((Path(__file__).parents[1] / 'examples/task.json').read_text())
 
 @pytest.mark.parametrize('value,expected', [(0,True), (1.5,True), (None,False), (True,False), (float('nan'),False), (float('inf'),False), ('2',False)])
 def test_measurements(value, expected):

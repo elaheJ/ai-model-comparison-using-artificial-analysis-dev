@@ -8,7 +8,7 @@ from model_compare.snapshots import demo_snapshot
 
 @pytest.fixture
 def setup():
-    return demo_snapshot(), json.loads((Path(__file__).parents[1]/'task.example.json').read_text())
+    return demo_snapshot(), json.loads((Path(__file__).parents[1]/'examples/task.json').read_text())
 
 def scripted(actions):
     iterator=iter(actions)
