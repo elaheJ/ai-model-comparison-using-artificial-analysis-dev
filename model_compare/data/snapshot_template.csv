@@ -1,0 +1,2 @@
+slug,name,creator,quality,input_price,output_price,ttft_s,first_answer_s,end_to_end_s,output_tokens_s
+demo-atlas,Atlas (demo),North,82,3,12,1.2,2.4,14,80

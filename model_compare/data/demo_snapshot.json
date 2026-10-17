@@ -1,0 +1,104 @@
+{
+  "source": "Fictional teaching data \u2014 not Artificial Analysis measurements",
+  "retrieved_at": "Not applicable: synthetic demo",
+  "intelligence_index_version": "Demo only",
+  "is_demo": true,
+  "models": [
+    {
+      "slug": "demo-atlas",
+      "name": "Atlas (demo)",
+      "creator": "North",
+      "quality": 82,
+      "input_price": 3,
+      "output_price": 12,
+      "ttft_s": 1.2,
+      "first_answer_s": 2.4,
+      "end_to_end_s": 14,
+      "output_tokens_s": 80
+    },
+    {
+      "slug": "demo-breeze",
+      "name": "Breeze (demo)",
+      "creator": "East",
+      "quality": 65,
+      "input_price": 0.25,
+      "output_price": 1,
+      "ttft_s": 0.2,
+      "first_answer_s": 0.35,
+      "end_to_end_s": 4,
+      "output_tokens_s": 180
+    },
+    {
+      "slug": "demo-cedar",
+      "name": "Cedar (demo)",
+      "creator": "West",
+      "quality": 74,
+      "input_price": 1.2,
+      "output_price": 4,
+      "ttft_s": 0.6,
+      "first_answer_s": 1.0,
+      "end_to_end_s": 8,
+      "output_tokens_s": 110
+    },
+    {
+      "slug": "demo-delta",
+      "name": "Delta (demo)",
+      "creator": "North",
+      "quality": 90,
+      "input_price": 6,
+      "output_price": 20,
+      "ttft_s": 2.8,
+      "first_answer_s": 5.1,
+      "end_to_end_s": 28,
+      "output_tokens_s": 55
+    },
+    {
+      "slug": "demo-ember",
+      "name": "Ember (demo)",
+      "creator": "East",
+      "quality": 57,
+      "input_price": 0.08,
+      "output_price": 0.3,
+      "ttft_s": 0.12,
+      "first_answer_s": 0.2,
+      "end_to_end_s": 3,
+      "output_tokens_s": 220
+    },
+    {
+      "slug": "demo-fjord",
+      "name": "Fjord (demo)",
+      "creator": "West",
+      "quality": 78,
+      "input_price": 2,
+      "output_price": 6,
+      "ttft_s": 0.85,
+      "first_answer_s": 1.6,
+      "end_to_end_s": 10,
+      "output_tokens_s": 95
+    },
+    {
+      "slug": "demo-grove",
+      "name": "Grove (demo)",
+      "creator": "South",
+      "quality": 70,
+      "input_price": 0.7,
+      "output_price": 2,
+      "ttft_s": null,
+      "first_answer_s": 1.4,
+      "end_to_end_s": 7,
+      "output_tokens_s": 130
+    },
+    {
+      "slug": "demo-harbor",
+      "name": "Harbor (demo)",
+      "creator": "South",
+      "quality": 81,
+      "input_price": 1.6,
+      "output_price": null,
+      "ttft_s": 1.1,
+      "first_answer_s": null,
+      "end_to_end_s": 12,
+      "output_tokens_s": 85
+    }
+  ]
+}
