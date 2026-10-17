@@ -44,7 +44,7 @@ def setup(agent):
     </style>""", unsafe_allow_html=True)
     st.markdown('<div class="eyebrow">ILLINOIS STATE UNIVERSITY / IT344</div>', unsafe_allow_html=True)
     st.title("Model Lab" + (" · Agent" if agent else ""))
-    st.caption("Compare models. Find alternatives." + (" Let a local agent make a checked choice." if agent else ""))
+    st.caption("Compare models. Find alternatives." + (" Let an agent make a checked choice." if agent else ""))
 
 
 def snapshot_controls():

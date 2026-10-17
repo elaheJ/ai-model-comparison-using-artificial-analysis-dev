@@ -1,5 +1,12 @@
 # Model Comparison Lab
 
+## Open the student apps
+
+- **[Model Lab](https://it344-model-lab.streamlit.app/)** — rank models and find similar alternatives across one or more features.
+- **[Model Lab · Agent](https://it344-model-agent.streamlit.app/)** — the same comparison and similarity tools, plus a checked agent workflow.
+
+Both use the bundled 704-model snapshot without an AA key. The cloud agent needs an instructor-configured LLM provider for actual AI runs; comparison, similarity, and the clearly labeled scripted rehearsal work without one.
+
 Two runnable apps adapted from **My344-FA26-ArtificialAnalysis-Functions & LLM Agent.ipynb**:
 
 | App | What it does | Requires an LLM? |

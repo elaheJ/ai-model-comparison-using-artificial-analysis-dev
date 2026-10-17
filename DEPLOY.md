@@ -1,5 +1,7 @@
 # Deploy both student apps from GitHub
 
+Hosted URLs: [Model Lab](https://it344-model-lab.streamlit.app/) and [Model Lab · Agent](https://it344-model-agent.streamlit.app/). Both deploy from [`elaheJ/it344-model-lab`](https://github.com/elaheJ/it344-model-lab), branch `main`, using Python 3.12. The instructions below also support deploying your own copy. Actual cloud-agent inference requires the provider configuration in step 3.
+
 Both apps retain **Find similar models**: pick any reference model, select one or more features, and see every comparable alternative with a similarity threshold and downloadable results. They ship with a cleaned **704-model Artificial Analysis snapshot**; students do not need an AA account or key to use that data.
 
 GitHub stores the source. **Streamlit Community Cloud runs the apps** and provides the URLs students open. GitHub Pages cannot run these Python servers.
