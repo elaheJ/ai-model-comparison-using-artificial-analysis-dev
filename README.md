@@ -1,4 +1,4 @@
-# Model Lab — Developer Repository
+# AI Model Comparison using Artificial Analysis — Developer Repository
 
 This is the full maintenance project: app source, tests, data preparation, packaging, and technical documentation.
 
