@@ -12,6 +12,8 @@ Both include a 704-model Artificial Analysis snapshot. Students need no AA API k
 
 ## Run locally
 
+For student-owned Colab sessions: **[Compare notebook](https://colab.research.google.com/github/elaheJ/it344-model-lab/blob/main/colab/Model_Lab_Compare.ipynb)** · **[Agent notebook](https://colab.research.google.com/github/elaheJ/it344-model-lab/blob/main/colab/Model_Lab_Agent.ipynb)**. Each prompts privately for the student's AA key and fetches a fresh snapshot before launching Gradio. The agent downloads Qwen into the runtime; no hosted LLM key is needed. `colab/` contains the notebooks and `model_compare/colab_ui.py` their interface. Colab code downloads the classroom repository's current `main` runtime modules. Keep these files synchronized between repositories.
+
 Use Python 3.12. In a terminal:
 
 ```bash
@@ -34,6 +36,7 @@ For the agent interface, run `python -m streamlit run agent_app.py`. Select **Sc
 | What you want to change | Start here |
 | --- | --- |
 | Layout, labels, and controls | [model_compare/ui.py](model_compare/ui.py) |
+| Colab interface and launch notebooks | [model_compare/colab_ui.py](model_compare/colab_ui.py), [colab/](colab/) |
 | Ranking, costs, similarity, and the notebook's ten functions | [model_compare/core.py](model_compare/core.py) |
 | Agent tools and result checks | [model_compare/agent.py](model_compare/agent.py) |
 | Snapshot format and AA downloads | [model_compare/snapshots.py](model_compare/snapshots.py) |
