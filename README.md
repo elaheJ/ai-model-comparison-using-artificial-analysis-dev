@@ -12,7 +12,7 @@ Both include a 704-model Artificial Analysis snapshot. Students need no AA API k
 
 ## Run locally
 
-For student-owned Colab sessions: **[Compare notebook](https://colab.research.google.com/github/elaheJ/it344-model-lab/blob/main/colab/Model_Lab_Compare.ipynb)** · **[Agent notebook](https://colab.research.google.com/github/elaheJ/it344-model-lab/blob/main/colab/Model_Lab_Agent.ipynb)**. Each prompts privately for the student's AA key and fetches a fresh snapshot before launching Gradio. The agent downloads Qwen into the runtime; no hosted LLM key is needed. `colab/` contains the notebooks and `model_compare/colab_ui.py` their interface. Colab code downloads the classroom repository's current `main` runtime modules. Keep these files synchronized between repositories.
+For student-owned Colab sessions: **[Compare notebook](https://colab.research.google.com/github/elaheJ/it344-model-lab/blob/main/colab/Model_Lab_Compare.ipynb)** · **[Agent notebook](https://colab.research.google.com/github/elaheJ/it344-model-lab/blob/main/colab/Model_Lab_Agent.ipynb)**. Each reads the student's `AA_API_KEY` from Colab Secrets (with Notebook access enabled) and fetches a fresh snapshot before launching Gradio. The agent downloads Qwen into the runtime; no hosted LLM key is needed. `colab/` contains the notebooks and `model_compare/colab_ui.py` their interface. Colab code downloads the classroom repository's current `main` runtime modules. Keep these files synchronized between repositories.
 
 Use Python 3.12. In a terminal:
 
