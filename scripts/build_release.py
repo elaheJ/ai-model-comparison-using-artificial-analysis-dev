@@ -26,7 +26,7 @@ def release_files(root=ROOT):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=ROOT.parent/'model-comparison-apps.zip')
+    parser.add_argument('--output', type=Path, default=ROOT.parent/'it344-model-lab-dev.zip')
     args = parser.parse_args()
     files = release_files()
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -4,7 +4,7 @@
 
 ## Hosting
 
-Deploy this repository twice on [Streamlit Community Cloud](https://share.streamlit.io), using branch `main` and Python 3.12:
+The existing deployments use the [classroom repository](https://github.com/elaheJ/it344-model-lab). To create a separate development deployment, deploy this developer repository twice on [Streamlit Community Cloud](https://share.streamlit.io), using branch `main` and Python 3.12:
 
 | App | Entry point | Current URL |
 | --- | --- | --- |
@@ -64,7 +64,7 @@ python -m pytest -q
 
 Use a new filename for each download. Commit only `model_compare/data/aa_snapshot.json`; the private download directory is ignored. Local `snapshots/aa_latest.json` or `AA_SNAPSHOT_PATH` can override the bundled fallback. Automatic server refresh keeps its data in memory and does not commit anything.
 
-## Share a source ZIP
+## Share a developer source ZIP
 
 ```bash
 python scripts/build_release.py

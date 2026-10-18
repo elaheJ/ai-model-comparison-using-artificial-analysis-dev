@@ -1,6 +1,10 @@
-# Model Lab
+# Model Lab — Developer Repository
 
-Two simple Streamlit apps for choosing language models for applied projects. Compare cost, response time, speed, and quality—or find alternatives similar to a model you already use.
+This is the full maintenance project: app source, tests, data preparation, packaging, and technical documentation.
+
+**Students and instructors using the apps: [start with the minimal classroom repository](https://github.com/elaheJ/it344-model-lab).**
+
+The classroom repository contains only runnable app files, shared code, data, and a short README. The live Streamlit deployments continue to track that classroom repository.
 
 **[Open Model Lab](https://it344-model-lab.streamlit.app/)** · **[Open Model Lab · Agent](https://it344-model-agent.streamlit.app/)**
 
@@ -11,8 +15,8 @@ Both include a 704-model Artificial Analysis snapshot. Students need no AA API k
 Use Python 3.12. In a terminal:
 
 ```bash
-git clone https://github.com/elaheJ/it344-model-lab.git
-cd it344-model-lab
+git clone https://github.com/elaheJ/it344-model-lab-dev.git
+cd it344-model-lab-dev
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e .
@@ -48,3 +52,9 @@ python -m pytest -q
 GitHub runs these checks on every push. Keep keys in Streamlit Secrets or your environment; never commit them.
 
 **More detail:** [Hosting, keys, and local models](docs/setup.md) · [Data formats and scoring methods](docs/reference.md) · [Example comparison task](examples/task.json)
+
+## Maintaining the classroom version
+
+Make and test changes here first. Copy reviewed runtime changes (the three app launchers, `requirements.txt`, `.streamlit/config.toml`, and shared modules/data under `model_compare/`) into the classroom repository, then commit and push there to update the live apps. Do not copy `cli.py`, `python_entry.py`, `agent_entry.py`, developer documentation, tests, scripts, examples, package metadata, or development configuration. Keep the classroom README short. Never copy real credentials.
+
+The release script packages this **full developer project**. It is not the minimal classroom download. The classroom repository's GitHub **Code → Download ZIP** is the student package.
