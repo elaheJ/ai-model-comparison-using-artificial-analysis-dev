@@ -17,8 +17,8 @@ For student-owned Colab sessions: **[Compare notebook](https://colab.research.go
 Use Python 3.12. In a terminal:
 
 ```bash
-git clone https://github.com/elaheJ/it344-model-lab-dev.git
-cd it344-model-lab-dev
+git clone https://github.com/elaheJ/ai-model-comparison-using-artificial-analysis-dev.git
+cd ai-model-comparison-using-artificial-analysis-dev
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e .
